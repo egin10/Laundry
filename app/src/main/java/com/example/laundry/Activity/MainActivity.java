@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -16,6 +17,7 @@ import com.example.laundry.Adapter.AdapterData;
 import com.example.laundry.Model.DataModel;
 import com.example.laundry.Model.ResponseModel;
 import com.example.laundry.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private List<DataModel> listData = new ArrayList<>();
     private SwipeRefreshLayout srlData;
     private ProgressBar pbData;
+    private FloatingActionButton fabTambah;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         rvData = findViewById(R.id.rv_data);
         srlData = findViewById(R.id.srl_data);
         pbData = findViewById(R.id.pb_data);
+        fabTambah = findViewById(R.id.fab_tambah);
 
         lmData = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvData.setLayoutManager(lmData);
@@ -50,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 srlData.setRefreshing(true);
                 retrieveData();
                 srlData.setRefreshing(false);
+            }
+        });
+
+        fabTambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TambahActivity.class));
             }
         });
     }
@@ -72,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 int kode = response.body().getKode();
                 String pesan = response.body().getPesan();
 
-                Toast.makeText(MainActivity.this, "kode : "+kode+ " | pesan : "+pesan, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "kode : "+kode+ " | pesan : "+pesan, Toast.LENGTH_SHORT).show();
 
                 listData = response.body().getData();
                 adData = new AdapterData(MainActivity.this, listData);

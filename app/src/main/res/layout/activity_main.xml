@@ -28,4 +28,15 @@
         android:visibility="invisible"
         />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_tambah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="32dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        />
+
 </RelativeLayout>
